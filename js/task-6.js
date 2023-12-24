@@ -3,15 +3,12 @@ function getRandomHexColor() {
 		.toString(16)
 		.padStart(6, 0)}`;
 }
-
-// js/task-06.js
-
 document.addEventListener("DOMContentLoaded", () => {
 	const input = document.querySelector("#controls input");
 	const createBtn = document.querySelector("[data-create]");
 	const destroyBtn = document.querySelector("[data-destroy]");
 	const boxesDiv = document.querySelector("#boxes");
-	let size = 30;
+	let sizeIncrement = 30;
 
 	createBtn.addEventListener("click", () => {
 		const amount = input.value;
@@ -29,20 +26,20 @@ document.addEventListener("DOMContentLoaded", () => {
 	destroyBtn.addEventListener("click", destroyBoxes);
 
 	function createBoxes(amount) {
-		if (amount <= 0) return;
+		let size = sizeIncrement;
 
-		const box = document.createElement("div");
-		box.style.width = `${size}px`;
-		box.style.height = `${size}px`;
-		box.style.backgroundColor = getRandomHexColor();
-		boxesDiv.appendChild(box);
+		for (let i = 0; i < amount; i += 1) {
+			const box = document.createElement("div");
+			box.style.width = `${size}px`;
+			box.style.height = `${size}px`;
+			box.style.backgroundColor = getRandomHexColor();
+			boxesDiv.appendChild(box);
 
-		size += 10;
-		createBoxes(amount - 1);
+			size += sizeIncrement;
+		}
 	}
-
 	function destroyBoxes() {
 		boxesDiv.innerHTML = "";
-		size = 30;
+		sizeIncrement = 30;
 	}
 });
